@@ -1,19 +1,17 @@
 package gredis
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/garyburd/redigo/redis"
 )
+
 
 func Lpush(key string, data interface{}, time int) error{
 	conn := RedisConn.Get()
 	defer conn.Close()
-	v, err := json.Marshal(data); if err != nil {
-		return err
-	}
-	fmt.Println("v:",v)
-	_, err = conn.Do("lpush",key,v);if err != nil{
+	//v, err := json.Marshal(data); if err != nil {
+	//	return err
+	//}
+	_, err := conn.Do("lpush",key,data);if err != nil{
 		return err
 	}
 	_, err = conn.Do("expire",key,time);if err != nil {
@@ -21,14 +19,13 @@ func Lpush(key string, data interface{}, time int) error{
 	}
 	return nil
 }
-func Lrange(key string, data interface{}){}
 
-func Lpop(key string) (string,error) {
+func Brpop(key string,timeout int) (interface{},error) {
 	conn := RedisConn.Get()
 	defer conn.Close()
 
-	reply, err := redis.String(conn.Do("lpop",key));if err != nil{
-		return "",err
+	reply, err := redis.Strings(conn.Do("brpop",key,timeout));if err != nil{
+		return nil,err
 	}
 
 	return reply,nil
@@ -45,3 +42,14 @@ func Len(key string) (int, error){
 	return reply, nil
 }
 //---------------------------------------------------------------------------------
+
+// get all list info
+func Lrange(key string)([]interface{}, error){
+	conn := RedisConn.Get()
+	defer conn.Close()
+
+	reply, err  := redis.Values(conn.Do("lrange",key,0,-1));if err != nil{
+		return nil, err
+	}
+	return reply, nil
+}

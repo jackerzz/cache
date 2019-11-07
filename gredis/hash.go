@@ -22,3 +22,5 @@ func Hget(key string)(string,error){
 	return reply,nil
 }
 //---------------------------------------------------------------------------------
+func Hmset()(){}
+func Hmget()(){}

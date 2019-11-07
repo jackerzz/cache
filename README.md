@@ -1,16 +1,17 @@
 # cache
-    conf            ini 配置
-    discover        检测模块调度中心
-    gdb             mysql持久化
-    gredis          redis缓存
-    task            任务中心
-    test            单元测试    
-    utlis           工具包
-    main.go         启动器
+    client              客户端测试
+    conf                ini 配置
+    scheduling          检测模块调度中心
+    gdb                 mysql持久化
+    gredis              redis缓存
+    task                任务中心
+    test                单元测试    
+    utlis               工具包
+    main.go             启动器
     
 ## conf
    [ini中文](https://ini.unknwon.io/docs/intro/getting_started)
-## discover
+## scheduling
 ## gdb
    [mysql gorm]()
 ## task
@@ -22,11 +23,19 @@
 ## test
    []()
 ## main.go
-
+    类型转换 undone
 
 
 ## undone
-    new add Memcached
-    new add RabbitMQ
-    new add es
+    sentinel----> 实现redis 读写分离
+    Memcached
+    RabbitMQ
+    es
     
+## eg
+    hash
+        账单表
+        设备info表
+        
+        
+     

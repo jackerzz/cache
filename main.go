@@ -14,25 +14,45 @@ func init(){
 }
 
 
-
-
 func main() {
+	test3()
+}
+
+func test1(){
 	gredis.Set("jacker","arrerr",3600)
 	r1,err :=gredis.Get("jacker"); if err != nil {
-		fmt.Errorf("errr:",err)
+		fmt.Println("r1",err)
 	}
 	fmt.Println(r1)
+	r5, err := gredis.Ttl("jacker")
+	fmt.Println(r5,err)
 
-	gredis.Lpush("query","paker",36666)
+	gredis.Lpush("query","jac",36666)
 
 	r2, err := gredis.Len("query"); if err !=nil {
-		fmt.Errorf("eer",err)
+		fmt.Println("r2",err)
 	}
-	fmt.Println("queue len",r2)
+	fmt.Println("r2",r2)
 
-	r3,err := gredis.Lpop("query");if err != nil {
-		fmt.Errorf("err",err)
+	reply,err := gredis.Lrange("query"); if err != nil {
+		fmt.Println("reply",err)
 	}
-	fmt.Println("reply",r3)
+	fmt.Println(reply)
 
+
+}
+
+func test2(){
+	_,err:=gredis.Brpop("list:1",0)
+	fmt.Println(err)
+	gredis.Lpush("list:1","hahahh",20)
+
+}
+
+func test3(){
+	// 阻塞状态下
+	r3,err := gredis.Brpop("list1",0);if err != nil {
+		fmt.Println("r3",err)
+	}
+	fmt.Println("r3",r3)
 }

@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// to done : 注册到 main.go
+// undone : 注册到 main.go
 func Setup() error {
 	c := cron.New()
 	c.AddFunc("*********缓存到redis********", func() {
