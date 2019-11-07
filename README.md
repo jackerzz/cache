@@ -8,3 +8,17 @@
     utlis           工具包
     main.go         启动器
     
+## conf<done>
+   [ini中文](https://ini.unknwon.io/docs/intro/getting_started)
+## discover
+## gdb
+   [mysql gorm]()
+## task
+   [task任务调度](github.com/robfig/cron)
+## gredis<done>
+   [redis package](github.com/gomodule/redigo/redis)
+
+## utlis
+## test
+   []()
+## main.go
