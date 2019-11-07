@@ -1,6 +1,6 @@
 package gredis
 
-import "github.com/garyburd/redigo/redis"
+import "github.com/gomodule/redigo/redis"
 
 // hash
 
