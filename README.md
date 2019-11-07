@@ -8,7 +8,7 @@
     utlis           工具包
     main.go         启动器
     
-## conf<done>
+## conf
    [ini中文](https://ini.unknwon.io/docs/intro/getting_started)
 ## discover
 ## gdb
@@ -22,3 +22,11 @@
 ## test
    []()
 ## main.go
+
+
+
+## undone
+    new add Memcached
+    new add RabbitMQ
+    new add es
+    

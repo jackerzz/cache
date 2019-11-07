@@ -5,6 +5,7 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
+
 // Set a key/value
 func Set(key string, data interface{}, time int) error {
 	conn := RedisConn.Get()
@@ -106,3 +107,5 @@ func Ttl(key string) (int,error){
 	return times, nil
 
 }
+
+//---------------------------------------------------------------------------------
