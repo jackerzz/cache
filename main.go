@@ -15,7 +15,7 @@ func init(){
 
 
 func main() {
-	test3()
+	test5()
 }
 
 func test1(){
@@ -55,4 +55,17 @@ func test3(){
 		fmt.Println("r3",err)
 	}
 	fmt.Println("r3",r3)
+}
+
+func test4(){
+	err :=gredis.SetWatch("jacker","jjjjjjsafsda",43);if err != nil {
+		fmt.Println(err)
+	}
+}
+func test5(){
+	reply, err:=gredis.Lrange("data:student:1");if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(reply)
+
 }

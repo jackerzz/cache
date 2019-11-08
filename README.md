@@ -18,12 +18,14 @@
    [task任务调度](github.com/robfig/cron)
 ## gredis<done>
    [redis package](github.com/gomodule/redigo/redis)
+   [redis命令](http://doc.redisfans.com/)
+   写入支持乐观锁
 
 ## utlis
 ## test
    []()
 ## main.go
-    类型转换 undone
+   [数据处理](https://www.processon.com/view/link/5daea29be4b0893e999df7b1)
 
 
 ## undone
