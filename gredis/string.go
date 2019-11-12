@@ -4,15 +4,17 @@ import (
 	"cache/setting"
 	"encoding/json"
 	"github.com/gomodule/redigo/redis"
+	"github.com/json-iterator/go"
+	"time"
 )
 
 
 // Set a key/value
-func Set(key string, data interface{}, time int) error {
+func Set(key string, data interface{}, expiration time.Duration) error {
 	conn := RedisConn.Get()
 	defer conn.Close()
 
-	value, err := json.Marshal(data)
+	value, err := jsoniter.Marshal(data)
 	if err != nil {
 		return err
 	}
@@ -22,12 +24,24 @@ func Set(key string, data interface{}, time int) error {
 		return err
 	}
 
-	_, err = conn.Do("EXPIRE", key, time)
+	_, err = conn.Do("EXPIRE", key, expiration)
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+// Get get a key
+func Get(key string) ([]byte, error) {
+	conn := RedisConn.Get()
+	defer conn.Close()
+
+	reply, err := redis.Bytes(conn.Do("GET", key))
+	if err != nil {
+		return nil, err
+	}
+	return reply, nil
 }
 
 // Exists check a key
@@ -43,18 +57,7 @@ func Exists(key string) bool {
 	return exists
 }
 
-// Get get a key
-func Get(key string) (string, error) {
-	conn := RedisConn.Get()
-	defer conn.Close()
 
-	reply, err := redis.String(conn.Do("GET", key))
-	if err != nil {
-		return "", err
-	}
-
-	return reply, nil
-}
 
 // Delete delete a kye
 func Delete(key string) (bool, error) {

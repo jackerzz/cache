@@ -15,7 +15,7 @@ func init(){
 
 
 func main() {
-	test5()
+	test1()
 }
 
 func test1(){

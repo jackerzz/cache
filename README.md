@@ -33,11 +33,10 @@
     Memcached
     RabbitMQ
     es
-    
-## eg
-    hash
-        账单表
-        设备info表
         
-        
-     
+## 新版 分布式缓存
+         采用：
+         memberlist ----> github.com/hashicorp/memberlist
+                用来管理分布式集群内节点发现、 节点失效探测、节点列表的软件包。
+         consistent hash(一致性哈希算法) --->stathat.com/c/consistent
+                https://studygolang.com/articles/13997
