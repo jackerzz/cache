@@ -26,17 +26,23 @@
    []()
 ## main.go
    [数据处理](https://www.processon.com/view/link/5daea29be4b0893e999df7b1)
-
-
-## undone
-    sentinel----> 实现redis 读写分离
-    Memcached
-    RabbitMQ
-    es
+    
         
-## 新版 分布式缓存
+## 新版 分布式缓存（Memcached 内存式实现） undone
          采用：
          memberlist ----> github.com/hashicorp/memberlist
                 用来管理分布式集群内节点发现、 节点失效探测、节点列表的软件包。
          consistent hash(一致性哈希算法) --->stathat.com/c/consistent
                 https://studygolang.com/articles/13997
+                
+## 读写分离
+    mysql binlog 将数据刷新到redis 并设置合理的有效时间
+    redis 只提供数据查询
+    
+                    
+                
+## undone
+    sentinel----> 实现redis 读写分离
+    Memcached
+    RabbitMQ
+    es
