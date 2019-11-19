@@ -1,9 +1,9 @@
 package dao
 
 import (
-	"cache/logic/model"
-	"cache/logic/public/imctx"
-	"cache/logic/public/logger"
+	"cache/cache/logic/model"
+	"cache/cache/logic/public/imctx"
+	"cache/cache/logic/public/logger"
 	"database/sql"
 )
 

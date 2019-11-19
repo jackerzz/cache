@@ -1,4 +1,4 @@
-package model// User 账户
+package model // User 账户
 import "time"
 
 type User struct {

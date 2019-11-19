@@ -1,7 +1,7 @@
 package gredis
 
 import (
-	"cache/setting"
+	"cache/cache/setting"
 	"encoding/json"
 	"github.com/gomodule/redigo/redis"
 	"github.com/json-iterator/go"

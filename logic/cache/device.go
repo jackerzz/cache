@@ -1,8 +1,8 @@
 package cache
 
 import (
-	"cache/gredis"
-	"cache/logic/model"
+	"cache/cache/gredis"
+	"cache/cache/logic/model"
 	"strconv"
 )
 

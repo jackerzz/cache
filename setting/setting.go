@@ -21,9 +21,22 @@ type Redis struct {
 	MaxActive   int
 	IdleTimeout time.Duration
 }
-
+type Canal struct {
+	Address           string
+	Port              int
+	UserName          string
+	PassWord          string
+	SoTime            int32
+	IdleTimeOut       int32
+	Connected         bool
+	Running           bool
+	Filter            string
+	RollbackOnConnect bool
+	LazyParseEntry    bool
+}
 var DatabaseSetting = &Database{}
 var RedisSetting = &Redis{}
+var CanalSetting = &Canal{}
 
 var cfg  *ini.File
 
@@ -35,6 +48,7 @@ func Setup() {
 	}
 	mapTo("redis", RedisSetting)
 	mapTo("database", DatabaseSetting)
+	mapTo("canal",CanalSetting)
 	RedisSetting.IdleTimeout = RedisSetting.IdleTimeout * time.Second
 }
 

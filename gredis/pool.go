@@ -1,7 +1,7 @@
 package gredis
 
 import (
-	"cache/setting"
+	"cache/cache/setting"
 	"github.com/gomodule/redigo/redis"
 	"time"
 )

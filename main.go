@@ -1,8 +1,8 @@
 package main
 
 import (
-	"cache/gredis"
-	"cache/setting"
+	"cache/cache/gredis"
+	"cache/cache/setting"
 	"fmt"
 )
 
