@@ -5,8 +5,9 @@
     https://github.com/alibaba/canal/releases
     备选：
         https://github.com/siddontang/go-mysql/blob/master/README.md
-    git clone https://github.com/withlin/canal-go.git
-    
+        git clone https://github.com/withlin/canal-go.git
+    重点：(基础配置)
+        https://github.com/alibaba/canal/wiki/AdminGuide
 ## mysql
     docker run --name mysql -di  \
     -v /home/cananl/mysql/conf:/etc/mysql/conf.d \
@@ -23,26 +24,7 @@
     https://my.oschina.net/teddyIH/blog/3102095
     
 ## 配置修改
-    vi conf/example/instance.properties
-    
-    ## mysql serverId
-    canal.instance.mysql.slaveId = 1234
-    #position info，需要改成自己的数据库信息
-    canal.instance.master.address = 127.0.0.1:3306 
-    canal.instance.master.journal.name = 
-    canal.instance.master.position = 
-    canal.instance.master.timestamp = 
-    #canal.instance.standby.address = 
-    #canal.instance.standby.journal.name =
-    #canal.instance.standby.position = 
-    #canal.instance.standby.timestamp = 
-    #username/password，需要改成自己的数据库信息
-    canal.instance.dbUsername = canal  
-    canal.instance.dbPassword = canal
-    canal.instance.defaultDatabaseName =
-    canal.instance.connectionCharset = UTF-8
-    #table regex
-    canal.instance.filter.regex = .\*\\\\..\*
+
 ## 启动&关闭 (/tmp/canal)
     sh bin/startup.sh
     sh bin/stop.sh
@@ -52,3 +34,12 @@
     
     查看 instance 的日志
     vi logs/example/example.log
+    
+    
+## 对于开启mysql binlong 的日志激增
+    [mysqld]  
+    log-bin=mysql-bin #添加这一行就ok  
+    binlog-format=ROW #选择row模式  
+    server_id=1 #配置mysql replaction需要定义，不能和canal的slaveId重复
+    #日志超过7天自动过期
+    expire_logs_days = 7
