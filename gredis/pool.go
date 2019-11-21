@@ -1,7 +1,7 @@
 package gredis
 
 import (
-	"cache/cache/setting"
+	"cache/setting"
 	"github.com/gomodule/redigo/redis"
 	"time"
 )
@@ -33,4 +33,7 @@ func Setup() error {
 	}
 
 	return nil
+}
+func init(){
+	Setup()
 }

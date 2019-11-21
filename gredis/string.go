@@ -1,8 +1,9 @@
 package gredis
 
 import (
-	"cache/cache/setting"
+	"cache/setting"
 	"encoding/json"
+	"fmt"
 	"github.com/gomodule/redigo/redis"
 	"github.com/json-iterator/go"
 	"time"
@@ -14,6 +15,7 @@ func Set(key string, data interface{}, expiration time.Duration) error {
 	conn := RedisConn.Get()
 	defer conn.Close()
 
+	fmt.Println(data)
 	value, err := jsoniter.Marshal(data)
 	if err != nil {
 		return err

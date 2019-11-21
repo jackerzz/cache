@@ -43,3 +43,99 @@
     server_id=1 #配置mysql replaction需要定义，不能和canal的slaveId重复
     #日志超过7天自动过期
     expire_logs_days = 7
+## 对于canal 启动的一些问题
+    1.
+        问题：
+            server 启动显示正常，但日志有报错
+            instance 启动显示正常，但没有任何日志信息 
+        解决：https://github.com/alibaba/canal/issues/2129
+            sh startup.sh local
+        =================================================================================================================
+    2.
+        instance管理中
+            instance 名称 master 对应client.NewSimpleCanalConnector()中destination 参数默认的为example
+        server管理
+            canal.properties  默认开启（canal instance user/passwd）认证
+            并且添加
+                canal.destinations = master
+        https://github.com/alibaba/canal/issues/1214
+## connector.Subscribe（）
+    过滤数据库和表的:
+        设置： instance.properties文件的 
+                canal.instance.filter.regex=
+                或者直接写在connector.Subscribe（）
+        
+        1. 所有表：.* or .*\\..*
+        
+        2. canal schema下所有表： canal\\..* （canal为数据库）
+        
+        3. canal下的以canal打头的表：canal\\.canal.*
+        
+        4. canal schema下的一张表：canal.test1
+        
+        5. 多个规则组合使用：canal\\..*,mysql.test1,mysql.test2 (逗号分隔)
+    =================================================================================================================
+    发往topic:
+        instance.properties文件的 canal.mq.dynamicTopic=
+        
+        canal 1.1.3版本之后, 支持配置格式：schema 或 schema.table，多个配置之间使用逗号或分号分隔
+        
+        例子1：test\\.test 指定匹配的单表，发送到以test_test为名字的topic上
+        例子2：.*\\..* 匹配所有表，则每个表都会发送到各自表名的topic上
+        例子3：test 指定匹配对应的库，一个库的所有表都会发送到库名的topic上
+        例子4：test\\.* 指定匹配的表达式，针对匹配的表会发送到各自表名的topic上
+        例子5：test,test1\\.test1，指定多个表达式，会将test库的表都发送到test的topic上，
+              test1\\.test1的表发送到对应的test1_test1 topic上，其余的表发送到默认的canal.mq.topic值
+    =================================================================================================================
+    灵活性：
+        允许对匹配条件的规则指定发送的topic名字，配置格式：topicName:schema 或 topicName:schema.table
+        例子1: test:test\\.test 指定匹配的单表，发送到以test为名字的topic上
+        例子2: test:.*\\..* 匹配所有表，因为有指定topic，则每个表都会发送到test的topic下
+        例子3: test:test 指定匹配对应的库，一个库的所有表都会发送到test的topic下
+        例子4：testA:test\\.* 指定匹配的表达式，针对匹配的表会发送到testA的topic下
+        例子5：test0:test,test1:test1\\.test1，指定多个表达式，会将test库的表都发送到test0的topic下，
+                   test1\\.test1的表发送到对应的test1的topic下，其余的表发送到默认的canal.mq.topic值
+    =================================================================================================================
+    重要说明
+    canal.mq.dynamicTopic	    canal.instance.filter.regex	            发送topic	                    描述
+    .\..*	                        d1.t,d2.t,d3.t	                        d1,d2,d3	                同一个数据库发送到以数据库为名字的topic
+    .\...*	                        d1.t,d2.t,d3.t	                        d1,d2,d3	                同一个数据库发送到以数据库为名字的topic
+    .*\\..*                 	d1.t,d2.t,d3.t	                        d1_t,d2_t,d3_t	            单表单topic，数据库和表名为topic
+    t:d.*\\.t	                d1.t,d2.t,d3.t	                        t	                        不同库同表，以表名为topic
+    =================================================================================================================
+    支持指定topic名称匹配, 配置格式：topicName:schema 或 schema.table，多个配置之间使用逗号分隔, 多组之间使用 ; 分隔
+    =================================================================================================================
+    
+    https://blog.csdn.net/weixin_40126236/article/details/92654961
+    https://gitee.com/starcwang/canal_mysql_elasticsearch_sync
+## Example
+    CREATE TABLE `us` (
+       `id` int(12) NOT NULL,
+       `name` char(23) DEFAULT NULL,
+       `age` int(23) DEFAULT NULL,
+       `phone` int(23) DEFAULT NULL,
+       PRIMARY KEY (`id`)
+     ) ENGINE=InnoDB DEFAULT CHARSET=latin1
+     =================================================================================================================
+     Run 结果
+     ================> binlog[mysql-bin.000010 : 56734],name[game,us], eventType: UPDATE
+     -------> before
+     id : 3  update= false
+     name : fsdjakfj  update= false
+     age : 23232  update= false
+     phone : 423  update= false
+     -------> after
+     id : 3  update= false
+     name : fsdjakfjfdfdsfds  update= true
+     age : 23232  update= false
+     phone : 423  update= false
+     ================> binlog[mysql-bin.000010 : 56462],name[game,us], eventType: INSERT
+     id : 5  update= true
+     name : asfds  update= true
+     age : 45  update= true
+     phone : 343  update= true
+     ================> binlog[mysql-bin.000010 : 57040],name[game,us], eventType: DELETE
+     id : 5  update= false
+     name : asfds  update= false
+     age : 45  update= false
+     phone : 343  update= false

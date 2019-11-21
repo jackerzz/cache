@@ -1,9 +1,11 @@
 package main
 
 import (
+	"cache/gredis"
 	"fmt"
 	"log"
 	"os"
+	"reflect"
 	"time"
 
 	"github.com/CanalClient/canal-go/client"
@@ -13,13 +15,13 @@ import (
 
 func main() {
 
-	connector := client.NewSimpleCanalConnector("192.168.225.129", 11111, "", "", "example", 60000, 60*60*1000)
+	connector := client.NewSimpleCanalConnector("192.168.225.129", 11111, "", "", "master", 60000, 60*60*1000)
 	err := connector.Connect()
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
 	}
-	err = connector.Subscribe(".*\\\\..*")
+	err = connector.Subscribe("game\\..*,test\\..*,page\\..*")
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
@@ -35,7 +37,6 @@ func main() {
 		batchId := message.Id
 		if batchId == -1 || len(message.Entries) <= 0 {
 			time.Sleep(300 * time.Millisecond)
-			fmt.Println("===没有数据了===")
 			continue
 		}
 
@@ -58,9 +59,11 @@ func printEntry(entrys []protocol.Entry) {
 			eventType := rowChange.GetEventType()
 			header := entry.GetHeader()
 			fmt.Println(fmt.Sprintf("================> binlog[%s : %d],name[%s,%s], eventType: %s", header.GetLogfileName(), header.GetLogfileOffset(), header.GetSchemaName(), header.GetTableName(), header.GetEventType()))
+
+
 			//================> binlog[mysql-bin.000005 : 17275],name[`HAH`,], eventType: QUERY
 			for _, rowData := range rowChange.GetRowDatas() {
-				if eventType == protocol.EventType_DELETE {
+				if eventType == protocol.EventType_DELETE{
 					printColumn(rowData.GetBeforeColumns())
 				} else if eventType == protocol.EventType_INSERT {
 					printColumn(rowData.GetAfterColumns())
@@ -76,8 +79,17 @@ func printEntry(entrys []protocol.Entry) {
 }
 
 func printColumn(columns []*protocol.Column) {
+
 	for _, col := range columns {
 		fmt.Println(fmt.Sprintf("%s : %s  update= %t", col.GetName(), col.GetValue(), col.GetUpdated()))
+		fmt.Println(col.GetName()+":"+col.GetValue())
+		key := "db"+":"+col.GetValue()
+
+		value := col.GetName()+":"+col.GetValue()
+		fmt.Println("this key: ",reflect.TypeOf(value))
+		gredis.Set(key,value,6000)
+		r,_ := gredis.Get(key)
+		fmt.Println("r:",r)
 	}
 }
 

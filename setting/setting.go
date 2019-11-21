@@ -34,9 +34,17 @@ type Canal struct {
 	RollbackOnConnect bool
 	LazyParseEntry    bool
 }
-var DatabaseSetting = &Database{}
-var RedisSetting = &Redis{}
-var CanalSetting = &Canal{}
+type Subscribes struct {
+	Subscribe 		string
+}
+
+var (
+	DatabaseSetting = &Database{}
+	CanalSetting = &Canal{}
+	RedisSetting = &Redis{}
+	SubscribesSetting = &Subscribes{}
+)
+
 
 var cfg  *ini.File
 
@@ -49,6 +57,7 @@ func Setup() {
 	mapTo("redis", RedisSetting)
 	mapTo("database", DatabaseSetting)
 	mapTo("canal",CanalSetting)
+	mapTo("Subscribes",SubscribesSetting)
 	RedisSetting.IdleTimeout = RedisSetting.IdleTimeout * time.Second
 }
 
@@ -57,4 +66,7 @@ func mapTo(section string, v interface{}) {
 	if err != nil {
 		log.Fatalf("Cfg.MapTo %s err: %v", section, err)
 	}
+}
+func init(){
+	Setup()
 }
