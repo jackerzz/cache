@@ -27,6 +27,7 @@
 
 ## 启动&关闭 (/tmp/canal)
     sh bin/startup.sh
+    sh bin/startup.sh local
     sh bin/stop.sh
 ## log
     查看 server 日志

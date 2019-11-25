@@ -15,7 +15,7 @@ func Core(){
 		log.Println(err)
 		os.Exit(1)
 	}
-	err = connector.Subscribe("game\\..*,test\\..*,page\\..*")
+	err = connector.Subscribe("go\\..*")
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)

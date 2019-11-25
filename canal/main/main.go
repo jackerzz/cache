@@ -20,11 +20,12 @@ func main() {
 		log.Println(err)
 		os.Exit(1)
 	}
-	err = connector.Subscribe("game\\..*,test\\..*,page\\..*")
+	err = connector.Subscribe("game\\..*,test\\..*,page\\..*,go\\..*")
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
 	}
+
 
 	for {
 
@@ -70,7 +71,7 @@ func printEntry(entrys []protocol.Entry) {
 					fmt.Println("-------> before")
 					printColumn(rowData.GetBeforeColumns())
 					fmt.Println("-------> after")
-					printColumn(rowData.GetAfterColumns())
+					//printColumn(rowData.GetAfterColumns())
 				}
 			}
 		}
@@ -102,3 +103,6 @@ func checkError(err error) {
 		os.Exit(1)
 	}
 }
+
+
+
