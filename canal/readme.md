@@ -43,6 +43,16 @@
     server_id=1 #配置mysql replaction需要定义，不能和canal的slaveId重复
     #日志超过7天自动过期
     expire_logs_days = 7
+    ====================================================================================================================
+    MySQL的四种BLOB类型:
+    类型         大小(单位：字节)
+    　　TinyBlob     最大255
+    　　Blob         最大65K
+    　　MediumBlob   最大16M
+    　　LongBlob     最大4G
+    linux通过etc/my.cnf
+    [mysqld]
+        max_allowed_packet = 10M 
 ## 对于canal 启动的一些问题
     1.
         问题：
@@ -100,7 +110,7 @@
     canal.mq.dynamicTopic	    canal.instance.filter.regex	            发送topic	                    描述
     .\..*	                        d1.t,d2.t,d3.t	                        d1,d2,d3	                同一个数据库发送到以数据库为名字的topic
     .\...*	                        d1.t,d2.t,d3.t	                        d1,d2,d3	                同一个数据库发送到以数据库为名字的topic
-    .*\\..*                 	d1.t,d2.t,d3.t	                        d1_t,d2_t,d3_t	            单表单topic，数据库和表名为topic
+    .*\\..*                 	d1.t,d2.t,d3.t	                        d1_t,d2_t,d3_t	                单表单topic，数据库和表名为topic
     t:d.*\\.t	                d1.t,d2.t,d3.t	                        t	                        不同库同表，以表名为topic
     =================================================================================================================
     支持指定topic名称匹配, 配置格式：topicName:schema 或 schema.table，多个配置之间使用逗号分隔, 多组之间使用 ; 分隔

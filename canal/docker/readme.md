@@ -9,44 +9,6 @@
 ## 启动rancher/rancher 容器
     docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /home/rancher_home/rancher:/var/lib/rancher -v /home/rancher_home/auditlog:/var/log/auditlog --name rancher rancher/rancher
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 ## 容器批量操作
     查看所有容器
         docker ps -a   

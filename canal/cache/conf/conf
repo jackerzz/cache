@@ -1,0 +1,29 @@
+[redis]
+Host = 127.0.0.1:6379
+Password =
+MaxIdle = 30
+MaxActive = 30
+IdleTimeout = 200
+
+[database]
+Type = mysql
+User = root
+Password = root
+Host = 192.168.225.129:33306
+Name = blog
+
+
+[canal]
+Address                 =192.168.225.129
+Port                    =11111
+UserName                =""
+PassWord                =""
+ClientIdentity          =""
+SoTime                  =60000
+IdleTimeOut             =60*60*1000
+RollbackOnConnect       =
+Destination             =
+
+; 设置订阅规则
+[Subscribes]
+Subscribe = game\\..*,test\\..*,page\\..*

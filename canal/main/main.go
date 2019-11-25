@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"reflect"
 	"time"
 
 	"github.com/CanalClient/canal-go/client"
@@ -79,18 +78,22 @@ func printEntry(entrys []protocol.Entry) {
 }
 
 func printColumn(columns []*protocol.Column) {
-
+	var value []string
+	var key string
 	for _, col := range columns {
 		fmt.Println(fmt.Sprintf("%s : %s  update= %t", col.GetName(), col.GetValue(), col.GetUpdated()))
 		fmt.Println(col.GetName()+":"+col.GetValue())
-		key := "db"+":"+col.GetValue()
+		value = append(value,col.GetName()+":"+col.GetValue())
+		if col.IsKey{
+			key = "db:"+col.GetValue()
+		}
 
-		value := col.GetName()+":"+col.GetValue()
-		fmt.Println("this key: ",reflect.TypeOf(value))
-		gredis.Set(key,value,6000)
-		r,_ := gredis.Get(key)
-		fmt.Println("r:",r)
 	}
+	fmt.Println(value,key)
+	gredis.Set(key,value,6000)
+	r,_ := gredis.Get(key)
+	fmt.Println("r:",r)
+
 }
 
 func checkError(err error) {
