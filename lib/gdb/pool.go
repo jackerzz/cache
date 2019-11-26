@@ -1,7 +1,7 @@
 package gdb
 
 import (
-	"cache/cache/setting"
+	"cache/lib/setting"
 	"fmt"
 	"github.com/jinzhu/gorm"
 )
