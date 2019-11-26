@@ -1,8 +1,8 @@
 package main
 
 import (
-	"cache/gredis"
-	"cache/setting"
+	"cache/lib/gredis"
+	"cache/lib/setting"
 	"fmt"
 )
 
@@ -57,11 +57,6 @@ func test3(){
 	fmt.Println("r3",r3)
 }
 
-func test4(){
-	err :=gredis.SetWatch("jacker","jjjjjjsafsda",43);if err != nil {
-		fmt.Println(err)
-	}
-}
 func test5(){
 	reply, err:=gredis.Lrange("data:student:1");if err != nil {
 		fmt.Println(err)
