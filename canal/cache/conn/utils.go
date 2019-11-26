@@ -17,5 +17,5 @@ func Format(header *protocol.Header,columns []*protocol.Column) (string,error){
 			// 直接输出
 		}
 	}
-
+	return "",nil
 }

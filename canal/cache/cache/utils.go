@@ -2,50 +2,18 @@ package cache
 
 import (
 	"cache/canal/cache/setting"
-	"fmt"
 	"github.com/gomodule/redigo/redis"
 	"github.com/json-iterator/go"
-	"golang.org/x/text/encoding/charmap"
-	"golang.org/x/text/encoding/simplifiedchinese"
 	"time"
 )
 
 
-var RedisConn *redis.Pool
-
-func Setup() error {
-	RedisConn = &redis.Pool{
-		MaxIdle:     setting.RedisSetting.MaxIdle,
-		MaxActive:   setting.RedisSetting.MaxActive,
-		IdleTimeout: setting.RedisSetting.IdleTimeout,
-		Dial: func() (redis.Conn, error) {
-			c, err := redis.Dial("tcp", setting.RedisSetting.Host)
-			if err != nil {
-				return nil, err
-			}
-			if setting.RedisSetting.Password != "" {
-				if _, err := c.Do("AUTH", setting.RedisSetting.Password); err != nil {
-					c.Close()
-					return nil, err
-				}
-			}
-			return c, err
-		},
-		TestOnBorrow: func(c redis.Conn, t time.Time) error {
-			_, err := c.Do("PING")
-			return err
-		},
-	}
-
-	return nil
-}
 
 // Set a key/value
 func Set(key string, data interface{}, expiration time.Duration) error {
 	conn := RedisConn.Get()
 	defer conn.Close()
 
-	fmt.Println(data)
 	value, err := jsoniter.Marshal(data)
 	if err != nil {
 		return err
@@ -85,6 +53,19 @@ func Delete(key string) (bool, error) {
 	return redis.Bool(conn.Do("DEL", key))
 }
 
+//================================================================================================================
+
+func Mget(){
+	conn := RedisConn.Get()
+	defer conn.Close()
+}
+
+func Hmset(){
+	conn := RedisConn.Get()
+	defer conn.Close()
+}
+
+//================================================================================================================
 
 // Count key
 func Incr(key string)(int, error){
@@ -111,18 +92,34 @@ func Ttl(key string) (int,error){
 
 }
 
-// iso-8859-1 to utf-8
-func Format(src string) (string,error){
+//================================================================================================================
+var RedisConn *redis.Pool
 
-	gbk, err := simplifiedchinese.GBK.NewEncoder().Bytes([]byte(src))
-	if err != nil {
-		return "", err
+func Setup() error {
+	RedisConn = &redis.Pool{
+		MaxIdle:     setting.RedisSetting.MaxIdle,
+		MaxActive:   setting.RedisSetting.MaxActive,
+		IdleTimeout: setting.RedisSetting.IdleTimeout,
+		Dial: func() (redis.Conn, error) {
+			c, err := redis.Dial("tcp", setting.RedisSetting.Host)
+			if err != nil {
+				return nil, err
+			}
+			if setting.RedisSetting.Password != "" {
+				if _, err := c.Do("AUTH", setting.RedisSetting.Password); err != nil {
+					c.Close()
+					return nil, err
+				}
+			}
+			return c, err
+		},
+		TestOnBorrow: func(c redis.Conn, t time.Time) error {
+			_, err := c.Do("PING")
+			return err
+		},
 	}
-	latin1, err := charmap.ISO8859_1.NewDecoder().Bytes(gbk)
-	if err != nil {
-		return "", err
-	}
-	return string(latin1), nil
+
+	return nil
 }
 
 

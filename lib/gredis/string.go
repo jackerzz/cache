@@ -1,8 +1,6 @@
 package gredis
 
 import (
-	"cache/setting"
-	"encoding/json"
 	"fmt"
 	"github.com/gomodule/redigo/redis"
 	"github.com/json-iterator/go"
@@ -120,28 +118,3 @@ func Mset()(){}
 func Mget()(){}
 
 //--------------------------------------------------------------------------------
-
-// Set a key/value  new Optimistic lock
-func SetWatch(key string, data interface{}, time int) error {
-	conn := RedisConn.Get()
-	defer conn.Close()
-
-	value, err := json.Marshal(data)
-	if err != nil {
-		return err
-	}
-	conn.Do("watch",key)
-	conn.Do("multi")
-	_, err = conn.Do("SET", key, value)
-	if err != nil {
-		return err
-	}
-	_, err = conn.Do("EXPIRE", key, time)
-	if err != nil {
-		return err
-	}
-	conn.Do("lpush",setting.GetMessage(1),key)
-	conn.Do("exec")
-
-	return nil
-}

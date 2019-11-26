@@ -9,13 +9,13 @@ import (
 )
 
 func Core(){
-	connector := client.NewSimpleCanalConnector("192.168.225.129", 11111, "", "", "master", 60000, 60*60*1000)
+	connector := client.NewSimpleCanalConnector("192.168.225.131", 11111, "", "", "master", 60000, 60*60*1000)
 	err := connector.Connect()
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
 	}
-	err = connector.Subscribe("game\\..*,test\\..*,page\\..*")
+	err = connector.Subscribe("baby_api_admin\\..*,go\\..*")
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)

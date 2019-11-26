@@ -19,9 +19,9 @@ func PrintEntry(entrys []protocol.Entry) {
 		err := proto.Unmarshal(entry.GetStoreValue(), rowChange)
 		checkError(err)
 		if rowChange != nil {
+
 			eventType := rowChange.GetEventType()
 			header := entry.GetHeader()
-			//fmt.Println(fmt.Sprintf("================> binlog[%s : %d],name[%s,%s], eventType: %s", header.GetLogfileName(), header.GetLogfileOffset(), header.GetSchemaName(), header.GetTableName(), header.GetEventType()))
 
 			for _, rowData := range rowChange.GetRowDatas() {
 				if eventType == protocol.EventType_DELETE{
@@ -30,32 +30,14 @@ func PrintEntry(entrys []protocol.Entry) {
 				} else if eventType == protocol.EventType_INSERT {
 					// 插入
 					cache.SetRedis(header,rowData.GetAfterColumns())
-				} else {
-					fmt.Println("-------> before")
-					orther(header,rowData.GetBeforeColumns())
+				} else if eventType == protocol.EventType_UPDATE{
 					cache.SetRedis(header,rowData.GetAfterColumns())
-					//fmt.Println("-------> after")
-					//orther(header,rowData.GetAfterColumns())
-					//cache.SetRedis(header,rowData.GetAfterColumns())
+				}else {
+					fmt.Println("...........................")
 				}
 			}
 		}
 	}
-}
-
-func orther(header *protocol.Header,columns []*protocol.Column) {
-	var key string
-	for _, col := range columns {
-		if col.IsKey{
-			key = header.GetSchemaName()+":"+header.GetTableName()+":"+col.GetValue()
-			//fmt.Println("type",reflect.TypeOf(col.GetValue()))
-		}
-
-	}
-
-	fmt.Println("other event:",key,header.GetEventType())
-
-
 }
 
 
