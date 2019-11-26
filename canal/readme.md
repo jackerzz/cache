@@ -16,7 +16,7 @@
     
     在 /home/cananl/mysql/conf 下新增mysql配置文件 来开启 mysql binlog模式
    
-## canal 部署
+## canal 部署（容器版）
     mkdir -p /tmp/canal
     mkdir -p /tmp/canal/canal-deployer
     mkdir -p /tmp/canal/canal-admin

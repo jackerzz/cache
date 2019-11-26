@@ -12,6 +12,7 @@
     查看run
         docker container ls
     Rancher v1.x    https://www.bookstack.cn/read/rancher-v1.x/30f7507a551232e8.md
+        docker run -d --name=rancher --restart=unless-stopped  -p 80:80 -p 9090:8080 -v /home/rancher_home/rancher:/var/lib/rancher -v /home/rancher_home/auditlog:/var/log/auditlog rancher/server
         mkdir -p /home/jacker/rancher_home/rancher
         mkdir -p /home/jacker/rancher_home/auditlog
         添加主机

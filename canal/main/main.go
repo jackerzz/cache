@@ -1,7 +1,7 @@
 package main
 
 import (
-	"cache/gredis"
+	"cache/lib/gredis"
 	"fmt"
 	"log"
 	"os"

@@ -2,7 +2,6 @@ package cache
 
 import (
 	"cache/canal/cache/setting"
-	"fmt"
 	"github.com/gomodule/redigo/redis"
 	"github.com/json-iterator/go"
 	"time"
@@ -15,7 +14,6 @@ func Set(key string, data interface{}, expiration time.Duration) error {
 	conn := RedisConn.Get()
 	defer conn.Close()
 
-	fmt.Println(data)
 	value, err := jsoniter.Marshal(data)
 	if err != nil {
 		return err

@@ -1,7 +1,6 @@
 package cache
 
 import (
-	"fmt"
 	protocol "github.com/CanalClient/canal-go/protocol"
 )
 
@@ -15,7 +14,4 @@ func DelRedis(header *protocol.Header,columns []*protocol.Column) {
 		}
 	}
 	Delete(key)
-	r,_ := Get(key)
-	fmt.Println("r:",r)
-
 }
