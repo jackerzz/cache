@@ -14,13 +14,13 @@ import (
 
 func main() {
 
-	connector := client.NewSimpleCanalConnector("192.168.225.129", 11111, "", "", "master", 60000, 60*60*1000)
+	connector := client.NewSimpleCanalConnector("192.168.225.131", 11111, "", "", "master", 60000, 60*60*1000)
 	err := connector.Connect()
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
 	}
-	err = connector.Subscribe("game\\..*,test\\..*,page\\..*,go\\..*")
+	err = connector.Subscribe("go\\..*")
 	if err != nil {
 		log.Println(err)
 		os.Exit(1)
@@ -58,44 +58,23 @@ func printEntry(entrys []protocol.Entry) {
 		if rowChange != nil {
 			eventType := rowChange.GetEventType()
 			header := entry.GetHeader()
-			fmt.Println(fmt.Sprintf("================> binlog[%s : %d],name[%s,%s], eventType: %s", header.GetLogfileName(), header.GetLogfileOffset(), header.GetSchemaName(), header.GetTableName(), header.GetEventType()))
-
+			fmt.Println(header.GetSchemaName())
 
 			//================> binlog[mysql-bin.000005 : 17275],name[`HAH`,], eventType: QUERY
 			for _, rowData := range rowChange.GetRowDatas() {
 				if eventType == protocol.EventType_DELETE{
-					printColumn(rowData.GetBeforeColumns())
+					gredis.DelRedis(header,rowData.AfterColumns)
 				} else if eventType == protocol.EventType_INSERT {
-					printColumn(rowData.GetAfterColumns())
+					gredis.SetRedis(header,rowData.AfterColumns)
 				} else {
-					fmt.Println("-------> before")
-					printColumn(rowData.GetBeforeColumns())
-					fmt.Println("-------> after")
-					//printColumn(rowData.GetAfterColumns())
+					fmt.Println("...........................")
+					gredis.SetRedis(header,rowData.AfterColumns)
 				}
 			}
 		}
 	}
 }
 
-func printColumn(columns []*protocol.Column) {
-	var value []string
-	var key string
-	for _, col := range columns {
-		fmt.Println(fmt.Sprintf("%s : %s  update= %t", col.GetName(), col.GetValue(), col.GetUpdated()))
-		fmt.Println(col.GetName()+":"+col.GetValue())
-		value = append(value,col.GetName()+":"+col.GetValue())
-		if col.IsKey{
-			key = "db:"+col.GetValue()
-		}
-
-	}
-	fmt.Println(value,key)
-	gredis.Set(key,value,6000)
-	r,_ := gredis.Get(key)
-	fmt.Println("r:",r)
-
-}
 
 func checkError(err error) {
 	if err != nil {
