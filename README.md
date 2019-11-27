@@ -11,9 +11,6 @@
     
 ## conf
    [ini中文](https://ini.unknwon.io/docs/intro/getting_started)
-## scheduling
-## gdb
-   [mysql gorm]()
 ## task
    [task任务调度](github.com/robfig/cron)
 ## gredis<done>
@@ -26,7 +23,7 @@
    [数据处理](https://www.processon.com/view/link/5daea29be4b0893e999df7b1)
     
         
-## 新版 分布式缓存（Memcached 内存式实现） undone
+## 新版 分布式缓存
          采用：
          memberlist ----> github.com/hashicorp/memberlist
                 用来管理分布式集群内节点发现、 节点失效探测、节点列表的软件包。
