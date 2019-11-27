@@ -4,7 +4,7 @@ from faker import Faker
 
 def run():
 	fake = Faker("zh-CN")
-	for i in range(10000):
+	for i in range(10):
 		sql = """insert into user(username,password,address)
 	    values('%s','%s','%s')""" \
 		      % (fake.user_name(), fake.password(special_chars=False), fake.address())
