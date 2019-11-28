@@ -17,5 +17,20 @@ func main() {
 
 	a, _ := snappy.Decode(nil, got)
 	fmt.Println("uncompressed len:", len(a))
+	fmt.Println("--------------------------------------------")
+	msp()
+
+}
+func msp(){
+	ages := make(map[string]int)
+	ages = map[string]int{
+		"alice":   31,
+		"charlie": 34,
+		"hanhah" : 3242,
+		"sb"	: 2332,
+	}
+	for k, v := range ages{
+		fmt.Println(k,v)
+	}
 
 }
