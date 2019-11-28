@@ -55,14 +55,23 @@ func Delete(key string) (bool, error) {
 
 //================================================================================================================
 
-func Mget(){
+func Hdel(key string)(bool, error){
 	conn := RedisConn.Get()
 	defer conn.Close()
+
+	return redis.Bool(conn.Do("HDEL", key))
 }
 
-func Hmset(){
+func Hset(key string,value map[string]string) error{
 	conn := RedisConn.Get()
 	defer conn.Close()
+	for k, v := range value{
+		_,err := redis.Bytes(conn.Do("Hset",key,k,v))
+		if err !=nil{
+			return err
+		}
+	}
+	return nil
 }
 
 //================================================================================================================
