@@ -34,10 +34,7 @@
     mysql binlog 将数据刷新到redis 并设置合理的有效时间
     redis 只提供数据查询
     
-                    
-                
-## undone
-    sentinel----> 实现redis 读写分离
-    Memcached
-    RabbitMQ
-    es
+    
+## Elasticsearch
+    接收来自 canal 的数据写入， 并且创建对应的索引
+    通过对应的查询方式取出字段，在Kibana 中进行数据可视化

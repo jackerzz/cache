@@ -26,7 +26,7 @@ func PrintEntry(entrys []protocol.Entry) {
 			for _, rowData := range rowChange.GetRowDatas() {
 				if eventType == protocol.EventType_DELETE{
 					// 删除键
-					cache.DelRedis(header,rowData.GetBeforeColumns())
+					cache.DelRedis(header,rowData.GetBeforeColumns(),"string")
 				} else if eventType == protocol.EventType_INSERT {
 					// 插入
 					cache.SetRedis(header,rowData.GetAfterColumns())
