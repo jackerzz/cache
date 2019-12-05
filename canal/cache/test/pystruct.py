@@ -1,6 +1,5 @@
-from faker import Faker
+import pandas
 
-faker = Faker("zh_CN")
 
 
 
@@ -8,7 +7,7 @@ faker = Faker("zh_CN")
 
 
 def run():
-	print(faker.texts())
+	print(pandas.read_sql_query())
 
 
 

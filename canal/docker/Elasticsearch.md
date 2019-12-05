@@ -32,14 +32,14 @@
             "about" :       "I like to collect rock albums",
             "interests":  [ "music" ]
         }
-    ---
+  
 
 * 查询
     ---
             GET /megacorp/employee/1                                        --> 根据_id查询
             GET /megacorp/employee/_search                                  --> all
             GET /megacorp/employee/_search?q=last_name:Smith                --> query last_name="Smith" 的字段
-    ---
+  
 
 
 * dsl查询
@@ -52,7 +52,7 @@
                 }
             }
         }
-    ---
+    
     
     
     
@@ -75,7 +75,7 @@
                 }
             }
         }
-    ---
+    
 
 
 * 短语搜索+聚合
@@ -98,7 +98,7 @@
                 }
             }
         }
-    --
+    
 
 * 多索引多类型
     ---
@@ -110,17 +110,21 @@
         /gb/user/_search	            搜索索引gb中类型user内的所有文档
         /gb,us/user,tweet/_search	    搜索索引gb和 索引us中类型user以及类型tweet内的所有文档
         /_all/user,tweet/_search	    搜索所有索引中类型为user以及tweet内的所有文档
-    ---
+    
     
 * 分页
     --
         参数	    说明
         size	每次返回多少个结果，默认值为10
         from	忽略最初的几条结果，默认值为0
+    
+
+
+* ik 
     --
-
-
-
+        （1）先将其解压，将解压后的elasticsearch文件夹重命名文件夹为ik
+        （2）将ik文件夹拷贝到elasticsearch/plugins 目录下。
+        （3）重新启动，即可加载IK分词器
 
 
 
@@ -136,5 +140,13 @@
 ## [elastic-go](https://github.com/olivere/elastic)
 ## [ElasticHD](https://github.com/360EntSecGroup-Skylar/ElasticHD/releases/)
 ## [中文ik分词](https://github.com/medcl/elasticsearch-analysis-ik/releases)
+    先将其解压，将解压后的elasticsearch文件夹重命名文件夹为ik
+    将ik文件夹拷贝到elasticsearch/plugins 目录下。
+    重新启动，即可加载IK分词器
 ## [Elasticsearch 权威指南](https://www.bookstack.cn/read/elasticsearch-definitive-guide-cn/README.md)
+    Elasticsearch 是一个分布式的 RESTful 风格的检索和数据分析引擎，能够解决不同场景下的各种搜索、统计分析问题
 ## [数据表透视](https://github.com/flexmonster/pivot-kibana/)
+## [kibana](https://www.elastic.co/cn/downloads/past-releases/kibana-6-8-3)
+## [elasticsearch](https://www.elastic.co/cn/downloads/past-releases/elasticsearch-6-8-3)
+## [ik](https://github.com/medcl/elasticsearch-analysis-ik/releases)
+## [elasticsearch-head](https://github.com/mobz/elasticsearch-head)
