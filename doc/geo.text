@@ -1,0 +1,123 @@
+PUT /museums
+{
+    "mappings": {
+        "properties": {
+            "location": {
+                "type": "geo_point"
+            }
+        }
+    }
+}
+POST /museums/_bulk?refresh
+{"index":{"_id":1}}
+{"location": "52.374081,4.912350", "name": "NEMO Science Museum"}
+{"index":{"_id":2}}
+{"location": "52.369219,4.901618", "name": "Museum Het Rembrandthuis"}
+{"index":{"_id":3}}
+{"location": "52.371667,4.914722", "name": "Nederlands Scheepvaartmuseum"}
+{"index":{"_id":4}}
+{"location": "51.222900,4.405200", "name": "Letterenhuis"}
+{"index":{"_id":5}}
+{"location": "48.861111,2.336389", "name": "Musée du Louvre"}
+{"index":{"_id":6}}
+{"location": "48.860000,2.327000", "name": "Musée d'Orsay"}
+
+
+#geo_bounds
+POST /museums/_search?size=0
+{
+    "query" : {
+        "match" : { "name" : "musée" }
+    },
+    "aggs" : {
+        "viewport" : {
+            "geo_bounds" : {
+                "field" : "location",
+                "wrap_longitude" : true
+            }
+        }
+    }
+}
+
+
+#geo_centroid
+POST /museums/_search?size=0
+ {
+     "aggs" : {
+         "centroid" : {
+             "geo_centroid" : {
+                 "field" : "location"
+             }
+         }
+     }
+ }
+
+#sort
+    PUT /my_index
+    {
+        "mappings": {
+            "properties": {
+                "post_date": { "type": "date" },
+                "user": {
+                    "type": "keyword"
+                },
+                "name": {
+                    "type": "keyword"
+                },
+                "age": { "type": "integer" }
+            }
+        }
+    }
+
+    GET /my_index/_search
+    {
+        "sort" : [
+            { "post_date" : {"order" : "asc"}},
+            "user",
+            { "name" : "desc" },
+            { "age" : "desc" },
+            "_score"
+        ],
+        "query" : {
+            "term" : { "user" : "kimchy" }
+        }
+    }
+
+
+# adjacency_matrix
+    PUT /emails/_bulk?refresh&pretty
+    { "index" : { "_id" : 1 } }
+    { "accounts" : ["hillary", "sidney"]}
+    { "index" : { "_id" : 2 } }
+    { "accounts" : ["hillary", "donald"]}
+    { "index" : { "_id" : 3 } }
+    { "accounts" : ["vladimir", "donald"]}
+
+    GET /emails/_search?pretty
+    {
+
+      "size": 0,
+
+      "aggs" : {
+
+        "interactions" : {
+
+          "adjacency_matrix" : {
+
+            "filters" : {
+
+              "grpA" : { "terms" : { "accounts" : ["hillary", "sidney"] }},
+
+              "grpB" : { "terms" : { "accounts" : ["donald", "mitt"] }},
+
+              "grpC" : { "terms" : { "accounts" : ["vladimir", "nigel"] }}
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }

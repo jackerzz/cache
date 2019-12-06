@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"gopkg.in/olivere/elastic.v5"
+	"github.com/olivere/elastic"
 	"log"
 	"os"
 	"time"

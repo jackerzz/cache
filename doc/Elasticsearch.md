@@ -10,7 +10,11 @@
     
     向仪表板添加可视化效果
 ---
-
+* es ---> mysql
+    --
+        index ≈ table
+        document ≈ record
+        field ≈ column
 
 [elasticsearch-head]()
 ---
@@ -137,8 +141,7 @@
 
 
 
-## [elastic-go](https://github.com/olivere/elastic)
-## [ElasticHD](https://github.com/360EntSecGroup-Skylar/ElasticHD/releases/)
+
 ## [中文ik分词](https://github.com/medcl/elasticsearch-analysis-ik/releases)
     先将其解压，将解压后的elasticsearch文件夹重命名文件夹为ik
     将ik文件夹拷贝到elasticsearch/plugins 目录下。
@@ -147,6 +150,9 @@
     Elasticsearch 是一个分布式的 RESTful 风格的检索和数据分析引擎，能够解决不同场景下的各种搜索、统计分析问题
 ## [数据表透视](https://github.com/flexmonster/pivot-kibana/)
 ## [kibana](https://www.elastic.co/cn/downloads/past-releases/kibana-6-8-3)
-## [elasticsearch](https://www.elastic.co/cn/downloads/past-releases/elasticsearch-6-8-3)
+## [elasticsearch downloads](https://www.elastic.co/cn/downloads/past-releases/elasticsearch-6-8-3)
 ## [ik](https://github.com/medcl/elasticsearch-analysis-ik/releases)
 ## [elasticsearch-head](https://github.com/mobz/elasticsearch-head)
+
+## [elastic-go](https://github.com/olivere/elastic)
+## [ElasticHD](https://github.com/360EntSecGroup-Skylar/ElasticHD/releases/)
