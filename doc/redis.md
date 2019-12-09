@@ -62,7 +62,6 @@
 * [Example](https://github.com/jackerzz/cache/blob/master/canal/cache/test/main.go)
 
 ## 写删除并未支持事务一致性
----
+    
      HDEL 每次只能删除单个域，如果你需要在一个原子时间内删除多个域，请将命令包含在 MULTI / EXEC 块内。
      DEL/SET/HSET  如果你需要在一个原子时间内删除多个域，请将命令包含在 MULTI / EXEC 块内。
----
