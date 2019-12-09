@@ -10,7 +10,7 @@
     缺点：由于增量式，会导致有很多无用的key以及内存紧张
     
        
-## [Elasticsearch](https://github.com/jackerzz/cache/tree/master/doc/es.md)
+## [Elasticsearch](https://github.com/jackerzz/cache/blob/master/doc/Elasticsearch.md)
     接收来自 canal 的数据增量写入， 并且创建对应的索引
     通过对应的查询方式取出字段，在Kibana/go-echarts 中进行数据可视化
     
