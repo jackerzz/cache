@@ -138,18 +138,9 @@
         （2）将ik文件夹拷贝到elasticsearch/plugins 目录下。
         （3）重新启动，即可加载IK分词器
 
-
-
-
-
-
-
-
-
-
-
 #工具
 > [中文ik分词](https://github.com/medcl/elasticsearch-analysis-ik/releases)
+ ---
     先将其解压，将解压后的elasticsearch文件夹重命名文件夹为ik
     将ik文件夹拷贝到elasticsearch/plugins 目录下。
     重新启动，即可加载IK分词器
