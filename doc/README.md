@@ -1,6 +1,6 @@
 ## CANAL ubuntu 18.4 server 部署
-* (下载canal)[https://github.com/alibaba/canal/releases]
-* (官方文档)[https://github.com/alibaba/canal/wiki]
+*  [下载canal](https://github.com/alibaba/canal/releases)
+*  [官方文档](https://github.com/alibaba/canal/wiki)
 
 ## 安装rancher（v2.x）
     docker pull rancher/rancher

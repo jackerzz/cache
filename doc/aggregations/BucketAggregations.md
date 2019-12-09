@@ -1,5 +1,7 @@
-# [算法](https://sourcegraph.com/github.com/olivere/elastic/-/blob/README.md#aggregations)
-* [Weighted Avg Aggregation](https://sourcegraph.com/github.com/olivere/elastic/-/blob/search_aggs_metrics_weighted_avg.go)
+* [Adjacency Matrix](https://sourcegraph.com/github.com/olivere/elastic/-/blob/search_aggs_bucket_adjacency_matrix.go)
+    ---
+        交叉存储，这个特性适合做多表关联
+* [Weighted Avg Aggregation](https://sourcegraph.com/github.com/olivere/elastic/-/blob/search_aggs_metrics_weighted_avg_test.go)
     --
        ∑(value * weight) / ∑(weight)
        
@@ -27,83 +29,29 @@
        	subAggregations map[string]Aggregation
        	meta            map[string]interface{}
        }
-     
-     
+   
+* undone
+ ---
+    [Children]()
+    [Auto-interval Date Histogram]()
+    [Date Histogram]()
+    [Date Range]()
+    [Diversified Sampler]()
+    [Filter]()
+    [Filters]()
+    [Geo Distance]()
+    [Global]()
+    [Histogram]()
+    [IP Range]()
+    [Missing]()
+    [Nested]()
+    [Range]()
+    [Reverse Nested]()
+    [Sampler]()
+    [Significant Terms]()
+    [Significant Text]()
+    [Terms]()
+    [Composite]()   
+   
+   
        
-* [golang 实现](https://sourcegraph.com/github.com/olivere/elastic/-/blob/search_aggs_metrics_weighted_avg_test.go)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# [olivere/elastic笔记](https://sourcegraph.com/github.com/olivere/elastic)
