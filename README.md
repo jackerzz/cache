@@ -22,6 +22,5 @@
 ## 用到的package
 > [ini中文](https://ini.unknwon.io/docs/intro/getting_started)
 >> [task任务调度](github.com/robfig/cron)
->>> [redis](github.com/gomodule/redigo/redis)
->>>> [redis命令](http://doc.redisfans.com/)
->>>>> [redis 设计](https://github.com/jackerzz/cache/tree/master/doc/redis.md)
+>>> [redis命令](http://doc.redisfans.com/)
+>>>> [redis 设计](https://github.com/jackerzz/cache/tree/master/doc/redis.md)
