@@ -7,7 +7,7 @@ import (
 	"time"
 )
 //https://www.twblogs.net/a/5baadacf2b7177781a0e9e90/zh-cn
-var host = "http://192.168.225.130:9200"
+var host = "http://34.92.92.214/:9200"
 func connect() *elastic.Client{
 	client, err := elastic.NewClient(
 		elastic.SetURL(host),
